@@ -1,6 +1,6 @@
 stages:
   - build
- # - lint
+  - lint
  # - push
  # - deploy
 
@@ -11,3 +11,10 @@ build:
   stage: build
   script:
     - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
+
+lint:
+  stage: lint
+  script:
+    - export CI_PIPELINE_ID=$CI_PIPELINE_ID
+    - export CI_BUILD_REF_NAME=$CI_BUILD_REF_NAME
+    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.test.yml run app flake8 .

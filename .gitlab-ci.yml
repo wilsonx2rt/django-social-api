@@ -1,8 +1,8 @@
 stages:
   - build
   - lint
- # - push
- # - deploy
+  - push
+  - deploy
 
 before_script:
   - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
@@ -17,4 +17,29 @@ lint:
   script:
     - export CI_PIPELINE_ID=$CI_PIPELINE_ID
     - export CI_BUILD_REF_NAME=$CI_BUILD_REF_NAME
-    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.test.yml run app flake8 .
+    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.yml run app flake8 .
+
+push image:
+  stage: push
+  only:
+    - master
+    - tags
+  script:
+    - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
+    - docker push "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
+
+push latest:
+  stage: push
+  script:
+    - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":latest
+    - docker push "$CI_REGISTRY_IMAGE":latest
+
+deploy master:
+  stage: deploy
+  only:
+    - master
+  when: manual
+  script:
+    - docker-compose -f docker-compose.deploy.yml down
+    - docker-compose -f docker-compose.deploy.yml pull
+    - docker-compose -f docker-compose.deploy.yml up -d

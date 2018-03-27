@@ -20,7 +20,7 @@ from project.api.views.registration import (
 from project.api.views.users import (
     FollowUserView,
     WhoIsUserFollowing,
-    MyProfileView,
+    # MyProfileView,
     WhoIsFollowingUser
 )
 
@@ -37,7 +37,7 @@ urlpatterns = [
     path('user/follow/<int:user_id>/', FollowUserView.as_view(), name='follow'),
     path('user/following/', WhoIsUserFollowing.as_view(), name='following'),
     path('user/followers/', WhoIsFollowingUser.as_view(), name='following'),
-    path('me/', MyProfileView.as_view(), name='my-profile'),
+    # path('me/', MyProfileView.as_view(), name='my-profile'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('registration/', RegistrationView.as_view(), name='registration'),

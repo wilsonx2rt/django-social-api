@@ -1,0 +1,9 @@
+<h1>Social feed of {{ user.username }}</h1>
+<a href="{% url 'overview' %}">Back</a>
+<ul>
+    {% for post in posts %}
+        <li>
+            {{ post.post }} | {{ post.created }}
+        </li>
+    {% endfor %}
+</ul>

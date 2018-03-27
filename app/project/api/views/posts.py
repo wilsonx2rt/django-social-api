@@ -21,7 +21,6 @@ class PostGetByIdView(GenericAPIView):
     ]
     serializer_class = PostSerializer
 
-
     def get_object(self, post_id):
         try:
             post = Post.objects.get(id=post_id)
@@ -47,7 +46,6 @@ class PostGetByIdView(GenericAPIView):
         serializer.save()
         return Response(serializer.data)
 
-
     def delete(self, request, post_id):
         """
         DELETE: delete a post by ID (only by owner of post or admin!)
@@ -65,14 +63,13 @@ class NewPostView(APIView):
         IsAuthenticated,
     ]
 
-
     def post(self, request):
         """
         POST: user can make a new post
         """
         serializer = PostSerializer(
-            data = request.data,
-            context = {'request': request}
+            data=request.data,
+            context={'request': request}
         )
         serializer.is_valid(raise_exception=True)
         post = serializer.create(serializer.data)
@@ -86,7 +83,6 @@ class LikeUnlikeView(APIView):
     permission_classes = [
         IsAuthenticated,
     ]
-
 
     def post(self, request, post_id):
         """
@@ -106,6 +102,7 @@ class LikeUnlikeView(APIView):
         like = Like.objects.get(post_id=post_id)
         like.delete()
         return Response('Like Deleted')
+
 
 class LikedPostsDisplayView(APIView):
     permission_classes = [

@@ -42,4 +42,3 @@ class NewPostView(FormView):
             post=form.cleaned_data.get('post')
         )
         return super().form_valid(form)
-

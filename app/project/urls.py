@@ -34,4 +34,3 @@ urlpatterns = [
     path('api/', include('project.api.urls', namespace='api')),
     path('docs/', include_docs_urls(title='My API title', public=False)),
 ]
-

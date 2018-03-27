@@ -168,4 +168,3 @@ STATIC_ROOT = '/static-files/'
 
 STATIC_URL = '/media/'
 STATIC_ROOT = '/media-files/'
-

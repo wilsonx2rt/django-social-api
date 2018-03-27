@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from project.feed.models import Post, Like
 
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
@@ -11,7 +12,7 @@ class PostSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return Post.objects.create(
             **validated_data,
-            user = self.context.get('request').user,
+            user=self.context.get('request').user,
         )
 
 
@@ -20,7 +21,7 @@ class LikeSerializer(serializers.Serializer):
     def create(self, post):
         return Like.objects.create(
             post=post,
-            user = self.context.get('request').user,
+            user=self.context.get('request').user,
         )
 
     def delete(self, like):

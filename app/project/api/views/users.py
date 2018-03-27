@@ -8,6 +8,7 @@ from project.feed.models import UserProfile
 
 User = get_user_model()
 
+
 class FollowUserView(APIView):
     permission_classes = [
         IsAuthenticated,
@@ -26,7 +27,7 @@ class FollowUserView(APIView):
     """
     def delete(self, request, user_id):
         user_profile = UserProfile.objects.get(user=request.user)
-        user =  User.objects.get(id=user_id)
+        user = User.objects.get(id=user_id)
         user_profile.following.remove(user)
         return Response('User un-followed')
 
@@ -60,9 +61,8 @@ class WhoIsFollowingUser(APIView):
         return Response(serializer.data)
 
 
-
-class MyProfileView(APIView):
-
-    def get(self, request):
-        current_user_profile = User.objects.get(user=request.user)
-        return Response('ok')
+# class MyProfileView(APIView):
+#
+#     def get(self, request):
+#         current_user_profile = User.objects.get(user=request.user)
+#         return Response('ok')

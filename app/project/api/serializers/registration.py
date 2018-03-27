@@ -6,6 +6,7 @@ from project.feed.models import UserProfile
 
 User = get_user_model()
 
+
 class RegistrationSerializer(serializers.Serializer):
     email = serializers.EmailField(
         label='E-Mail address'

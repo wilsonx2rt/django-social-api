@@ -1,4 +1,3 @@
-
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -28,8 +27,8 @@ from project.api.views.users import (
 app_name = 'api'
 
 urlpatterns = [
-    path('feed/', FeedDisplayView.as_view(),name='feed_display'),
-    path('feed/<int:user_id>/', UserPostsFeedView.as_view(),name='user_posts'),
+    path('feed/', FeedDisplayView.as_view(), name='feed_display'),
+    path('feed/<int:user_id>/', UserPostsFeedView.as_view(), name='user_posts'),
     path('feed/?search=<str:search_string>', FeedDisplayView.as_view(), name='feed_search'),
     path('posts/<int:post_id>/', PostGetByIdView.as_view(), name='post_get'),
     path('posts/new-post/', NewPostView.as_view(), name='new-post'),

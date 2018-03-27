@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-# Create your models here.
+import random
+
 
 class Tags(models.Model):
     name = models.CharField(
@@ -22,15 +23,14 @@ class Post(models.Model):
         to=Tags,
     )
     content = models.TextField(
-        verbose_name ="post content",
+        verbose_name="post content",
     )
     created = models.DateTimeField(
-        verbose_name = "post created",
+        verbose_name="post created",
         auto_now_add=True,
     )
 
-
-    class Meta: # changes default settings
+    class Meta:  # changes default settings
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ['-created']
@@ -51,7 +51,6 @@ class Like(models.Model):
         on_delete=models.CASCADE,
     )
 
-
     class Meta:
         verbose_name = 'Like'
         verbose_name_plural = 'Likes'
@@ -60,13 +59,13 @@ class Like(models.Model):
         ]
 
 
-import random
 def code_generator():
     return ''.join(random.sample('0123456789', 5))
 
 # def code_generator(length=5):
 #     numbers = '0123456789'
 #     return ''.join(random.choice(numbers) for i in range(length))
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(

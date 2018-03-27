@@ -1,6 +1,6 @@
 FROM continuumio/miniconda:4.4.10
 
-ENV LANG=C.UFT-8 LC_ALL=C.YFT-8
+ENV LANG=C.UFT-8 LC_ALL=C.UFT-8
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -qqy \
     wget \
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -qqy \
     libssl-dev \
     openssh-server
 
-RUN mkdir /var/runsshd
+RUN mkdir /var/run/sshd
 RUN echo 'root:screencast' | chpasswd
 RUN sed -i '/PermitRootLogin/c\PermitRootLogin yes' /etc/ssh/sshd_config
 
@@ -19,10 +19,11 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 RUN mkdir -p /app \
-    mkdir -p /media-files/ | \
-    mkdir -p /static-files/
+    mkdir -p /media-files | \
+    mkdir -p /static-files
 
 COPY ./app/requirements.yml /app/requirements.yml
+
 RUN /opt/conda/bin/conda env create -f /app/requirements.yml
 
 ENV PATH /opt/conda/envs/app/bin:$PATH

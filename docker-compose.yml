@@ -1,7 +1,27 @@
-version: '3'
+version: '2'
 services:
+  database:
+    image: postgres:9.6.1
+    restart: always
+    env_file: dev.env
+    volumes:
+      - database:/var/lib/postgresql/data
+
   app:
-    image: test
+    image: test:latest
+    restart: always
+    command: "/usr/sbin/sshd -D"
+    env_file: dev.env
     ports:
+      - "49279:22"
       - "8080:8000"
-    command: "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./media-files:/media-files
+      - ./static-files:/static-files
+      - ./app:/app
+      - ./scripts:/scripts
+    depends_on:
+      - database
+
+volumes:
+  database:

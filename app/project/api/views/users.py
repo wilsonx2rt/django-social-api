@@ -3,7 +3,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from project.api.serializers.users import UserSerializer
+from project.api.serializers.users import (
+    UserSerializer,
+    UserDetailsSerializer
+)
 from project.feed.models import UserProfile
 
 User = get_user_model()
@@ -65,7 +68,7 @@ class MyProfileView(APIView):
 
     def get(self, request):
         current_user = request.user
-        serializer = UserSerializer(current_user)
+        serializer = UserDetailsSerializer(current_user)
         return Response(serializer.data)
 
     def post(self, request):

@@ -1,26 +1,25 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+User = get_user_model()
 
-# refactor to model serializer
+
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(
         label='id',
     )
-    username = serializers.CharField(
-        label='username',
+    post_count = serializers.IntegerField(
+        label='post count', read_only=True
     )
-    first_name = serializers.CharField(
-        label='First name'
-    )
-    last_name = serializers.CharField(
-        label='Last name'
-    )
-    # post_count = serializers.SerializerMethodField(
-    #     label='post count', read_only=True
-    # )
     email = serializers.EmailField(
         label='email'
     )
     # fame_index = serializers.IntegerField(
     #     label='fame index'
     # )
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email')

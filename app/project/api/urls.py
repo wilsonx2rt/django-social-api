@@ -28,54 +28,84 @@ app_name = 'api'
 
 urlpatterns = [
     # FEED
-    path('feed/', FeedDisplayView.as_view(),
-         name='feed_display'
+    path(
+        route='feed/',
+        view=FeedDisplayView.as_view(),
+        name='feed_display'
     ),
-    path('feed/<int:user_id>/', UserPostsFeedView.as_view(),
-         name='user_posts'
+    path(
+        route='feed/<int:user_id>/',
+        view=UserPostsFeedView.as_view(),
+        name='user_posts'
     ),
-    path('feed/?search=<str:search_string>', FeedDisplayView.as_view(),
-         name='feed_search'
+    path(
+        route='feed/?search=<str:search_string>',
+        view=FeedDisplayView.as_view(),
+        name='feed_search'
     ),
     # POST
-    path('posts/<int:post_id>/', PostGetByIdView.as_view(),
-         name='post_get'
+    path(
+        route='posts/<int:post_id>/',
+        view=PostGetByIdView.as_view(),
+        name='post_get'
     ),
-    path('posts/new-post/', NewPostView.as_view(),
-         name='new-post'
+    path(
+        route='posts/new-post/',
+        view=NewPostView.as_view(),
+        name='new-post'
     ),
-    path('posts/<int:post_id>/like/', LikeUnlikeView.as_view(),
-         name='like-unlike'
+    path(
+        route='posts/<int:post_id>/like/',
+        view=LikeUnlikeView.as_view(),
+        name='like-unlike'
     ),
-    path('posts/likes/', LikedPostsDisplayView.as_view(),
-         name='likes'
+    path(
+        route='posts/likes/',
+        view=LikedPostsDisplayView.as_view(),
+        name='likes'
     ),
     # USER
-    path('user/follow/<int:user_id>/', FollowUserView.as_view(),
-         name='follow'
+    path(
+        route='user/follow/<int:user_id>/',
+        view=FollowUserView.as_view(),
+        name='follow'
     ),
-    path('user/following/', WhoIsUserFollowing.as_view(),
-         name='following'
+    path(
+        route='user/following/',
+        view=WhoIsUserFollowing.as_view(),
+        name='following'
     ),
-    path('user/followers/', WhoIsFollowingUser.as_view(),
-         name='following'
+    path(
+        route='user/followers/',
+        view=WhoIsFollowingUser.as_view(),
+        name='following'
     ),
     # ME
-    path('me/', MyProfileView.as_view(),
-         name='my-profile'
+    path(
+        rout='me/',
+        view=MyProfileView.as_view(),
+        name='my-profile'
     ),
     # AUTH
-    path('token/', TokenObtainPairView.as_view(),
-         name='token_obtain_pair'
+    path(
+        route='token/',
+        view=TokenObtainPairView.as_view(),
+        name='token_obtain_pair'
     ),
-    path('token/refresh/', TokenRefreshView.as_view(),
-         name='token_refresh'
+    path(
+        rout='token/refresh/',
+        view=TokenRefreshView.as_view(),
+        name='token_refresh'
     ),
     # REGISTRATION
-    path('registration/', RegistrationView.as_view(),
-         name='registration'
+    path(
+        rout='registration/',
+        view=RegistrationView.as_view(),
+        name='registration'
     ),
-    path('registration/validation/', RegistrationValidationView.as_view(),
-         name='registration-validation'
+    path(
+        route='registration/validation/',
+        view=RegistrationValidationView.as_view(),
+        name='registration-validation'
     ),
 ]

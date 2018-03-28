@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+
 # refactor to model serializer
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(

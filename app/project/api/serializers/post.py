@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from project.feed.models import Post, Like
 
+
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post

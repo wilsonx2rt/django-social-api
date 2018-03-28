@@ -2,7 +2,8 @@ stages:
   - build
   - lint
   - push
-#  - deploy
+  - deploy
+  - cleanup
 
 before_script:
   - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
@@ -10,6 +11,8 @@ before_script:
 build:
   stage: build
   script:
+    - ls
+    echo 'Please'
     - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
 
 lint:
@@ -34,12 +37,18 @@ push latest:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":latest
     - docker push "$CI_REGISTRY_IMAGE":latest
 
-#deploy master:
-#  stage: deploy
-#  only:
-#    - master
-#  when: manual
-#  script:
-#    - docker-compose -f docker-compose.deploy.yml down
-#    - docker-compose -f docker-compose.deploy.yml pull
-#    - docker-compose -f docker-compose.deploy.yml up -d
+deploy master:
+  stage: deploy
+  only:
+    - master
+  when: manual
+  script:
+    - docker-compose -f docker-compose.deploy.yml down
+    - docker-compose -f docker-compose.deploy.yml pull
+    - docker-compose -f docker-compose.deploy.yml up -d
+
+cleanup:
+  stage: cleanup
+  script:
+    - docker rmi -f "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME"
+

@@ -61,8 +61,18 @@ class WhoIsFollowingUser(APIView):
         return Response(serializer.data)
 
 
-# class MyProfileView(APIView):
-#
-#     def get(self, request):
-#         current_user_profile = User.objects.get(user=request.user)
-#         return Response('ok')
+class MyProfileView(APIView):
+
+    def get(self, request):
+        current_user = request.user
+        serializer = UserSerializer(current_user)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = UserSerializer(
+            data=request.data,
+            context={'request': request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)

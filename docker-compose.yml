@@ -13,8 +13,3 @@ services:
       - ./media-files:/media-files
       - ./static-files:/static-files
       - ./scripts:/scripts
-#    depends_on:
-#      - database
-#
-#volumes:
-#  database:

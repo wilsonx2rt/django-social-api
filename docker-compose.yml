@@ -1,9 +1,18 @@
 version: "2"
 services:
+  database:
+    image: postgres:9.6.1
+    restart: always
+    env_file:
+      - dev.env
+    volumes:
+      - database:/var/lib/postgresql/data
 
   app:
     image: registry.gitlab.propulsion-home.ch/wilsz2rt/django-social-api:latest
     restart: always
+    env_file:
+      - dev.env
     ports:
       - "8080:8000"
       - "4738:22"
@@ -14,3 +23,6 @@ services:
       - ./static-files:/static-files
       - ./scripts:/scripts
       - ./database:/database
+
+volumes:
+  database:

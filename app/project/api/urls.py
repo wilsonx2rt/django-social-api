@@ -82,7 +82,7 @@ urlpatterns = [
     ),
     # ME
     path(
-        rout='me/',
+        route='me/',
         view=MyProfileView.as_view(),
         name='my-profile'
     ),
@@ -93,13 +93,13 @@ urlpatterns = [
         name='token_obtain_pair'
     ),
     path(
-        rout='token/refresh/',
+        route='token/refresh/',
         view=TokenRefreshView.as_view(),
         name='token_refresh'
     ),
     # REGISTRATION
     path(
-        rout='registration/',
+        route='registration/',
         view=RegistrationView.as_view(),
         name='registration'
     ),

@@ -27,7 +27,7 @@ SECRET_KEY = 'epua)y_&jvg%ed-7bgi7!4%x#)uyn9f^4bkll1eaj+ym8ezrgk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [wilson.propulsion-learn.ch]
 
 DEFAULT_FROM_EMAIL = 'students@propulsionacademy.com'
 EMAIL_USE_TLS = True

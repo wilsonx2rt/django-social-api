@@ -26,7 +26,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'epua)y_&jvg%ed-7bgi7!4%x#)uyn9f^4bkll1eaj+ym8ezrgk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
 DEBUG = ast.literal_eval(os.environ.get('DJANGO_DEBUG'))
 
 ALLOWED_HOSTS = ['wilson.propulsion-learn.ch', 'localhost']

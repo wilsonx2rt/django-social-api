@@ -1,6 +1,7 @@
 name: app
 dependencies:
   - python=3.6
+  - pscycopg2=2.7.4
   - pip:
     - django==2.0.3
     - flake8==3.5.0

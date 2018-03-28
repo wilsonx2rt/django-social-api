@@ -17,6 +17,10 @@ services:
       - "8080:8000"
       - "4738:22"
     command: "/usr/sbin/sshd -D"
+    depends_on:
+      - database
+    links:
+      - database
     volumes:
       - ./app:/app
       - ./media-files:/media-files

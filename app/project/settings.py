@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import ast
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from datetime import timedelta
@@ -25,9 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'epua)y_&jvg%ed-7bgi7!4%x#)uyn9f^4bkll1eaj+ym8ezrgk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['wilson.propulsion-learn.ch']
+DEBUG = ast.literal_eval(os.environ.get('DJANGO_DEBUG'))
+
+ALLOWED_HOSTS = ['wilson.propulsion-learn.ch', 'localhost']
 
 DEFAULT_FROM_EMAIL = 'students@propulsionacademy.com'
 EMAIL_USE_TLS = True

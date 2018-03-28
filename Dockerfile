@@ -29,6 +29,7 @@ COPY ./app/requirements.yml /app/requirements.yml
 RUN /opt/conda/bin/conda env create -f /app/requirements.yml
 
 ENV PATH /opt/conda/envs/app/bin:$PATH
+RUN sed '$ a conda activate app' -i /root/.bashrc
 
 COPY ./app /app
 

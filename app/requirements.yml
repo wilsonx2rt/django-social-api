@@ -1,9 +1,13 @@
 name: app
+channels:
+- conda-forge
 dependencies:
   - python=3.6
   - psycopg2=2.7.4
+  - uwsgi2=2.0.15
   - pip:
     - django==2.0.3
     - flake8==3.5.0
+    - djangorestframework==3.7.7
     - djangorestframework-simplejwt==3.2.3
     - coreapi==2.3.3

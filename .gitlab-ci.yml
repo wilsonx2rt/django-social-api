@@ -12,7 +12,7 @@ build:
   stage: build
   script:
     - ls
-    echo 'Please'
+    - echo 'Please'
     - docker build --tag="$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" --cache-from="$CI_REGISTRY_IMAGE":latest --pull .
 
 lint:
@@ -25,8 +25,8 @@ lint:
 push image:
   stage: push
   only:
-    - master
     - tags
+    - master
   script:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
     - docker push "$CI_REGISTRY_IMAGE":"$CI_BUILD_REF_NAME"
@@ -37,18 +37,15 @@ push latest:
     - docker tag "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME" "$CI_REGISTRY_IMAGE":latest
     - docker push "$CI_REGISTRY_IMAGE":latest
 
-deploy master:
+deploy to prod:
   stage: deploy
-  only:
-    - master
   when: manual
   script:
-    - docker-compose -f docker-compose.deploy.yml down
     - docker-compose -f docker-compose.deploy.yml pull
+    - docker-compose -f docker-compose.deploy.yml down
     - docker-compose -f docker-compose.deploy.yml up -d
 
 cleanup:
   stage: cleanup
   script:
     - docker rmi -f "$CI_PIPELINE_ID":"$CI_BUILD_REF_NAME"
-

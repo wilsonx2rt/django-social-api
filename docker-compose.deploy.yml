@@ -10,7 +10,7 @@ services:
 
 
   app:
-    image: registry.gitlab.propulsion-home.ch/full-stack/solutions/week-4/django-social-api:latest
+    image: registry.gitlab.propulsion-home.ch/wilsz2rt/django-social-api:latest
     restart: always
     env_file:
       - prod.env

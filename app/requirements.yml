@@ -4,7 +4,7 @@ channels:
 dependencies:
   - python=3.6
   - psycopg2=2.7.4
-  - uwsgi2=2.0.15
+  - uwsgi=2.0.15
   - pip:
     - django==2.0.3
     - flake8==3.5.0

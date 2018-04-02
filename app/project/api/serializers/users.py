@@ -48,5 +48,3 @@ class FriendsRequestSerializer(serializers.ModelSerializer):
             request_to=self.user_id,
             status=self.initial_status
         )
-
-

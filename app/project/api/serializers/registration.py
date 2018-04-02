@@ -21,6 +21,7 @@ class RegistrationSerializer(serializers.Serializer):
         except User.DoesNotExist:
             return value
     # code generator
+
     @staticmethod
     def send_registration_email(email, code):
         message = EmailMessage(

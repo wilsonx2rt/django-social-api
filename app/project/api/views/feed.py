@@ -9,6 +9,7 @@ from project.feed.models import Post, UserProfile
 
 User = get_user_model()
 
+
 class FeedDisplayView(APIView):
     permission_classes = [
         IsAuthenticated,

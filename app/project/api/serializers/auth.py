@@ -4,6 +4,7 @@ from django.core.mail import EmailMessage
 
 User = get_user_model()
 
+
 class PasswordResetCodeSerializer(serializers.Serializer):
     email = serializers.EmailField(
         label='Registration E-Mail Address'
@@ -58,5 +59,3 @@ class PasswordResetValidationSerializer(PasswordResetCodeSerializer):
         user.profile.registration_code = ''
         user.profile.save()
         return user
-
-

@@ -126,6 +126,10 @@ class SharePostView(APIView):
             post = Post.objects.get(id=post_id)
         except Post.DoesNotExist:
             raise Http404
+
+        if request.user == post.user:
+            raise OwnPostError
+
         new_post = Post.objects.create(
             user=request.user,
             shared=post

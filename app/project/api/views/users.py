@@ -160,7 +160,7 @@ class PendingRequestsView(APIView):
         GET: List all my pending friend requests
         """
         user = request.user
-        requests = FriendRequests.objects.filter(request_from=user,request_status='open')
+        requests = FriendRequests.objects.filter(request_from=user, request_status='open')
         serializer = FriendsRequestSerializer(requests, many=True)
         return Response(serializer.data)
 

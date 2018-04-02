@@ -3,6 +3,8 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from project.api.exeptions import OwnPostError
 from project.api.permissions import IsOwnerOrReadOnly
 from project.api.serializers.post import (
     PostSerializer,
@@ -115,3 +117,17 @@ class LikedPostsDisplayView(APIView):
     def get(self, request):
         posts = Post.objects.filter(likes__user=request.user)
         return Response(PostSerializer(posts, many=True).data)
+
+
+class SharePostView(APIView):
+
+    def post(self, request, post_id):
+        try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            raise Http404
+        new_post = Post.objects.create(
+            user=request.user,
+            shared=post
+        )
+        return Response(PostSerializer(new_post).data)

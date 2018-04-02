@@ -14,11 +14,10 @@ class RegistrationView(GenericAPIView):
     permission_classes = []
     serializer_class = RegistrationSerializer
 
-    """
-    /api/registration/ POST: Register a new user by asking for
-    an email (send email validation code)
-    """
     def post(self, request):
+        """
+        POST: Register a new user by asking for an email (send email validation code)
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         new_user = serializer.register_user(

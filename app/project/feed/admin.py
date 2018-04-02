@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from project.feed.models import Post, UserProfile
-from project.feed.models import Tags
+from project.feed.models import Post, UserProfile, FriendRequests, Like
+from project.feed.models import Tag
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -14,5 +14,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Post)
-admin.site.register(Tags)
+admin.site.register(Tag)
+admin.site.register(Like)
+admin.site.register(FriendRequests)
 admin.site.register(UserProfile, UserProfileAdmin)

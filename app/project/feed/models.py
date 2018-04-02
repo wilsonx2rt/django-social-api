@@ -1,9 +1,9 @@
 from django.db import models
 from django.conf import settings
-import random
+from project.api.helpers import code_generator
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     name = models.CharField(
         verbose_name='tag name',
         max_length=20,
@@ -17,10 +17,10 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='posts',
     )
-
     tags = models.ManyToManyField(
         verbose_name='tags',
-        to=Tags,
+        to=Tag,
+        blank=True
     )
     content = models.TextField(
         verbose_name="post content",
@@ -28,6 +28,13 @@ class Post(models.Model):
     created = models.DateTimeField(
         verbose_name="post created",
         auto_now_add=True,
+    )
+    shared = models.ForeignKey(
+        verbose_name='shared',
+        to='self',
+        on_delete=models.CASCADE,
+        related_name='shares',
+        null=True
     )
 
     class Meta:  # changes default settings
@@ -46,7 +53,7 @@ class Like(models.Model):
     )
     post = models.ForeignKey(
         verbose_name='post',
-        to='feed.post',
+        to='Post',
         related_name='likes',
         on_delete=models.CASCADE,
     )
@@ -57,14 +64,6 @@ class Like(models.Model):
         unique_together = [
             ('user', 'post'),
         ]
-
-
-def code_generator():
-    return ''.join(random.sample('0123456789', 5))
-
-# def code_generator(length=5):
-#     numbers = '0123456789'
-#     return ''.join(random.choice(numbers) for i in range(length))
 
 
 class UserProfile(models.Model):
@@ -85,3 +84,47 @@ class UserProfile(models.Model):
         unique=True,
         default=code_generator
     )
+
+    def new_code(self):
+        self.registration_code = code_generator()
+        self.save()
+        return self.registration_code
+
+    def __str__(self):
+        return self.user.username
+
+
+class FriendRequests(models.Model):
+    DEFAULT_STATUS = 'open'
+    STATUS_CHOICES = [
+        (DEFAULT_STATUS, 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+    request_from = models.ForeignKey(
+        verbose_name='sent friend request',
+        to=settings.AUTH_USER_MODEL,
+        related_name='sent_requests',
+        on_delete=models.CASCADE,
+    )
+    request_to = models.ForeignKey(
+        verbose_name='received friend request',
+        to=settings.AUTH_USER_MODEL,
+        related_name='received_requests',
+        on_delete=models.CASCADE,
+
+    )
+    request_status = models.CharField(
+        verbose_name='request status',
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=DEFAULT_STATUS,
+    )
+
+    class Meta:
+        verbose_name = 'FriendRequest'
+        verbose_name_plural = 'FriendRequests'
+        unique_together = [
+            ('request_from', 'request_to'),
+            ('request_to', 'request_from')
+        ]

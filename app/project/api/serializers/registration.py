@@ -20,7 +20,7 @@ class RegistrationSerializer(serializers.Serializer):
             )
         except User.DoesNotExist:
             return value
-
+    # code generator
     @staticmethod
     def send_registration_email(email, code):
         message = EmailMessage(
@@ -66,7 +66,7 @@ class RegistrationValidationSerializer(serializers.Serializer):
         label='Last name',
     )
 
-    def validate(selfself, data):
+    def validate(self, data):
         if data.get('password') != data.get('password_repeat'):
             raise serializers.ValidationError({
                 'password': 'Passwords don\'t match!'

@@ -3,11 +3,20 @@ from rest_framework import serializers
 from project.feed.models import Post, Like
 
 
-class PostSerializer(serializers.ModelSerializer):
+class SharedPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'content', 'created')
-        read_only_fields = ['id', 'created']
+        fields = ['id', 'content', 'created', 'user']
+        read_only_fields = fields
+
+
+class PostSerializer(SharedPostSerializer):
+    shared = SharedPostSerializer()
+
+    class Meta:
+        model = Post
+        fields = ('id', 'content', 'created', 'user', 'shared')
+        read_only_fields = ['id', 'created', 'user', 'shared']
 
     def create(self, validated_data):
         return Post.objects.create(

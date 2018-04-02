@@ -26,7 +26,6 @@ services:
       - ./media-files:/media-files
       - ./static-files:/static-files
       - ./scripts:/scripts
-      - ./database:/database
 
 volumes:
   database:

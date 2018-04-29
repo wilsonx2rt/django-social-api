@@ -34,7 +34,8 @@ class Post(models.Model):
         to='self',
         on_delete=models.CASCADE,
         related_name='shares',
-        null=True
+        blank=True,
+        null=True,
     )
 
     class Meta:  # changes default settings
